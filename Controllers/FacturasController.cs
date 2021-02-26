@@ -9,9 +9,7 @@ using SistemaGestionContratos;
 using Rotativa.AspNetCore;
 using SistemaGestionContratos.Controllers;
 using SistemaGestionContratos.Models;
-//agregado para metodo de la notificaciones
 using static SistemaGestionContratos.Controllers.NotificacionesController.Enum;
-//agregado para metodo de exportar a excel
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
 using jsreport.AspNetCore;
@@ -108,9 +106,7 @@ namespace SistemaGestionContratos.Models
         // GET: Contratos/Create
         public IActionResult Create()
         {
-            //Pasando Resultado del metodo Devolverlistado() a la vista 
-            // ViewBag.Milistado = Devolverlistado();
-
+         
             List<Contratos> lst = new List<Contratos>();
             lst = _context.Contratos.ToList();
             ViewBag.listado = lst;
@@ -121,8 +117,7 @@ namespace SistemaGestionContratos.Models
               
 
         // POST: Contratos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NumeroFactura,FechaFactura,FacturaMN,FacturaCUC,FacturaObservacion,ContratosId")]Facturas facturas)
@@ -131,8 +126,7 @@ namespace SistemaGestionContratos.Models
             {
                 _context.Add(facturas);
                 await _context.SaveChangesAsync();
-                //Metodo agregado para mostrar notificaciones
-                Alerta("Factura creada correctamente.", NotificationType.success);
+                 Alerta("Factura creada correctamente.", NotificationType.success);
                 return RedirectToAction(nameof(Create));
 
             }
@@ -157,8 +151,7 @@ namespace SistemaGestionContratos.Models
         }
 
         // POST: Contratos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ContratosID,Numero,Proveedor,Modalidad,Firma,Vence,cuc,mn,Aprobacion,Observacion")] Contratos contratos)
@@ -229,8 +222,6 @@ namespace SistemaGestionContratos.Models
 
 
 
-
-        //Metodo agregado para exportar a excel
         public IActionResult ExportarExcel()
         {
             string excelContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -252,7 +243,6 @@ namespace SistemaGestionContratos.Models
         }
 
 
-        //Metodos para exportar a pdf
 
 
 
